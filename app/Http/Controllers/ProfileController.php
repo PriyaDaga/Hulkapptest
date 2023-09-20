@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 use App\Models\User;
+use App\Mail\RegisterMail;
 
 class ProfileController extends Controller
 {
@@ -61,6 +62,12 @@ class ProfileController extends Controller
             $user->verified = 0;
         }
         $user->save();
+        $mailData = [
+            'title' => 'Mail from Hulkapp',
+            'body' => 'Your account has been verified.'
+        ];
+         
+        \Mail::to($user['email'])->send(new RegisterMail($mailData));
         return redirect()->route('profile.users');
     }
 
