@@ -16,9 +16,10 @@ class RegisterMail extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public $mailData;
+    public function __construct($maildata)
     {
-        //
+        $this->mailData = $maildata;
     }
 
     /**
@@ -37,7 +38,7 @@ class RegisterMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'user.register',
+            view: 'users.registermail',
         );
     }
 

@@ -7,5 +7,6 @@
 </head>
 <body>
     
+    <h2>{{$mailData['body']}}</h2>
 </body>
 </html>

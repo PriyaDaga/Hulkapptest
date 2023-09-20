@@ -58,16 +58,17 @@ class ProfileController extends Controller
         $chk = $user['verified'];
         if($chk == 0){
             $user->verified = 1;
+            $mailData = [
+                'title' => 'Mail from Hulkapp',
+                'body' => 'Your account has been verified.'
+            ];
+             
+            \Mail::to($user['email'])->send(new RegisterMail($mailData));
         }else{
             $user->verified = 0;
         }
         $user->save();
-        $mailData = [
-            'title' => 'Mail from Hulkapp',
-            'body' => 'Your account has been verified.'
-        ];
-         
-        \Mail::to($user['email'])->send(new RegisterMail($mailData));
+        
         return redirect()->route('profile.users');
     }
 
